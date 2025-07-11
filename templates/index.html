@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <title>Catálogo</title>
+    <link rel="icon" href="{{ url_for('static', filename='favicon.png') }}" type="image/png">
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Catálogo</h1>
+
+        <form method="get">
+            <input type="text" name="busca" placeholder="Buscar por nome, sobrenome, e-mail, ramal, setor..." value="{{ request.args.get('busca', '') }}">
+            <button type="submit">Buscar</button>
+        </form>
+
+        <a href="{{ url_for('adicionar') }}" class="botao-adicionar" title="Adicionar Ramal">
+            <i class="fas fa-plus"></i>
+        </a>
+        <a href="{{ url_for('baixar') }}" class="botao-baixar" title="Baixar Excel">
+    <i class="fa-solid fa-download"></i> Baixar Excel
+        </a>
+
+        <table>
+            <thead>
+                <tr>
+                    <th>Nome</th>
+                    <th>Sobrenome</th>
+                    <th>Setor</th>
+                    <th>Ramal</th>
+                    <th>Telefone</th>
+                    <th>Email</th>
+                    <th>Ações</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for ramal in ramais %}
+                <tr>
+                    <td>{{ ramal[1] }}</td>
+                    <td>{{ ramal[2] }}</td>
+                    <td>{{ ramal[3] }}</td> 
+                    <td>{{ ramal[4] }}</td>
+                    <td>
+                        {% if ramal[5] %}
+                            <div class="telefone-container">
+                                <span>{{ ramal[5] }}</span>
+                                <a href="https://wa.me/55{{ ramal[5]|replace('(', '')|replace(')', '')|replace(' ', '')|replace('-', '') }}" 
+                                target="_blank" 
+                                title="Enviar WhatsApp"
+                                class="whatsapp-link">
+                                    <img src="{{ url_for('static', filename='whatsapp-icon.png') }}" alt="WhatsApp" class="whatsapp-icon">
+                                </a>
+                            </div>
+                        {% else %}
+                            -
+                        {% endif %}
+                    </td>
+                    <td><a href="https://outlook.office.com/mail/deeplink/compose?to={{ ramal[6] }}&subject=Contato%20via%20Catálogo&body=Olá%2C%20" target="_blank">{{ ramal[6] }}</a></td>
+                    <td>
+                        <a href="/editar/{{ ramal[0] }}" class="botao-icone editar" title="Editar"><i class="fa-solid fa-pen-to-square"></i></a>
+                        <a href="/deletar/{{ ramal[0] }}" class="botao-icone deletar" title="Excluir" onclick="return confirm('Tem certeza que deseja excluir este ramal?')"><i class="fa-solid fa-trash-can"></i></a>
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</body>
+</html>

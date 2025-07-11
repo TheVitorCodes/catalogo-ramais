@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <title>Adicionar Ramal</title>
+    <link rel="icon" href="{{ url_for('static', filename='favicon.png') }}" type="image/png">
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <div class="container">
+        <h1>Adicionar Novo Ramal</h1>
+        <form action="/adicionar" method="post">
+            <label>Nome:</label>
+            <input type="text" name="nome" required>
+
+            <label>Sobrenome:</label>
+            <input type="text" name="sobrenome">
+
+            <label>Setor:</label>
+            <input type="text" name="setor" required>
+
+            <label>Ramal:</label>
+            <input type="text" name="ramal" required>
+
+            <label>Telefone:</label>
+            <input type="text" name="telefone">
+
+            <label>Email:</label>
+            <input type="email" name="email">
+
+            <button type="submit">Salvar</button>
+        </form>
+        <a href="/">Voltar</a>
+    </div>
+</body>
+</html>
