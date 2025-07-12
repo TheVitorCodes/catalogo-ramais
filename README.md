@@ -40,6 +40,7 @@ catalogo-ramais/
 ├── importar_planilha.py     # Script para importar dados do Excel
 ├── ramais.db                # Banco de dados SQLite
 ├── ramais.xlsx              # Planilha de exemplo (opcional)
+├── requirements.txt         # Dependências do projeto
 ├── templates/
 │   ├── index.html
 │   ├── formulario.html
