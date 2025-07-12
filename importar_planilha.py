@@ -11,16 +11,11 @@ excel_path = os.path.join(BASE_DIR, 'ramais.xlsx')  # nome real da planilha
 df = pd.read_excel(excel_path)
 
 # Função para dividir nome completo
-def separar_nome(nome_completo):
-    partes = str(nome_completo).strip().split()
-    nome = partes[0] if partes else ''
-    sobrenome = ' '.join(partes[1:]) if len(partes) > 1 else ''
-    return nome, sobrenome
-
 # Processar dados
 registros = []
 for _, row in df.iterrows():
-    nome, sobrenome = separar_nome(row['Nome'])
+    nome = str(row['Nome']).strip() if not pd.isna(row['Nome']) else ''
+    sobrenome = str(row['Sobrenome']).strip() if not pd.isna(row['Sobrenome']) else ''
 
     setor = str(row['Setor']).strip() if not pd.isna(row['Setor']) else ''
     ramal = str(row['Ramal']).strip() if not pd.isna(row['Ramal']) else ''
